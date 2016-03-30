@@ -4,7 +4,8 @@
 setting.txt目录输入两行,第一行输入测试的包名，第二行输入插入的activity名字(流量)
 cd到项目目录，运行python run.py
 
-内存：为了adb自动触发GC，需要在源码添加一个activity，并在onCreate()方法执行GC命令。
+内存：为了adb自动触发GC，需要在源码添加一个activity，并在onCreate()方法执行GC命令。具体原理参考
+http://blog.csdn.net/cloud_huan/article/details/50983724
 
 流量：读取xt_qtagui的值，很多软件都是读取这个的
 
