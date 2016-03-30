@@ -5,13 +5,15 @@ import os
 import time
 from baseUtils import C_Utils
 
-pkg = 'com.togic.livevideo'
 ctool = C_Utils()
+pkg = ctool.readSetting()[0]
+activity_name = ctool.readSetting()[1]
+
 
 def printMem():
     """"""
-    _adb = "adb shell dumpsys meminfo com.togic.livevideo | grep -iE 'Dalvik Heap' | awk 'BEGIN{print 'Allocat,Pencent'}{print $8','$8/128000}'"
-    _adbGC = 'adb shell am start -n com.togic.livevideo/com.togic.launcher.GcActivity'
+    _adb = "adb shell dumpsys meminfo %s | grep -iE 'Dalvik Heap' | awk 'BEGIN{print 'Allocat,Pencent'}{print $8','$8/128000}'"%pkg
+    _adbGC = 'adb shell am start -n %s/%s'%(pkg,activity_name)
     ctool.execADB(_adbGC)
     time.sleep(3)
     ctime = ctool.getCurrentTime()
@@ -25,7 +27,7 @@ def printMem():
 def main():
     """"""
     while True:
-        key = raw_input('回车键打印并记录内存值，写入csv文件,输入q回车结束')
+        key = raw_input('回车键触发GC机制(需要源码支持),并获取内存数据，然后写入csv文件-->输入q退出')
         if key == 'q' or key == 'Q':
             ctool.writeMemCSV(['-','-','-'])
             exit()

@@ -1,0 +1,2 @@
+com.xxx.livevideo
+com.xxx.launcher.GcActivity

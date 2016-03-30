@@ -45,41 +45,34 @@ class C_Utils():
     def getCurrentTime(self):
         return time.strftime('%H-%M-%S',time.localtime(time.time()))
     
-    def writeTrafficCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'traffic.csv')):
+    def writeTrafficCSV(self,d_list):
         """"""
-        if not os.path.exists(abs_path):
-            f = file(abs_path,'w+')
-            _writer = csv.writer(f)
-            _writer.writerow(['时间','接收流量KB','发送流量KB'])
-            f.close()
-        f = file(abs_path,'a+')
-        _writer = csv.writer(f)
-        _writer.writerow(d_list)
-        f.close()
+        self.writeCSV(d_list,['时间','接收流量KB','发送流量KB'],os.path.join(os.getcwd(),'traffic.csv'))
     
-    def writeMemCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'meminfo.csv')):
+    def writeMemCSV(self,d_list):
         """"""
-        if not os.path.exists(abs_path):
-            f = file(abs_path,'w+')
-            _writer = csv.writer(f)
-            _writer.writerow(['时间','分配内存','占用百分比'])
-            f.close()
-        f = file(abs_path,'a+')
-        _writer = csv.writer(f)
-        _writer.writerow(d_list)
-        f.close()
+        self.writeCSV(d_list, ['时间','分配内存','占用百分比'],os.path.join(os.getcwd(),'meminfo.csv'))
     
-    def writeGFXCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'GFX.csv')):
+    def writeGFXCSV(self,d_list):
+        """"""
+        self.writeCSV(d_list, ['Draw(ms)','Process(ms)','Execute(ms)','总时间<16ms'],os.path.join(os.getcwd(),'GFX.csv'))
+    
+    def writeCSV(self,d_list,t_list,abs_path = os.path.join(os.getcwd(),'test.csv')):
         """"""
         if not os.path.exists(abs_path):
             f = file(abs_path,'w+')
             _writer = csv.writer(f)
-            _writer.writerow(['Draw(ms)','Process(ms)','Execute(ms)','总时间<16ms'])
+            _writer.writerow(t_list)
             f.close()
         f = file(abs_path,'a+')
         _writer = csv.writer(f)
         _writer.writerow(d_list)
-        f.close()     
-
+        f.close()  
+    
+    def readSetting(self):
+        """"""
+        with open(os.path.join(os.getcwd(),'setting.txt'),'r+') as f:
+            return [f.readline().strip('\n'),f.readline().strip('\n')]
+            
 if __name__ == '__main__':
-    print C_Utils().writeCSV(['15-15-15','151','1515'])
+    print C_Utils().readSetting()

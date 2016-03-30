@@ -3,13 +3,13 @@
 
 from baseUtils import *
 
-pkg = 'com.togic.livevideo'
 ctool = C_Utils()
+pkg = ctool.readSetting()[0]
 
 def getTraffic():
     """"""
     #_adb = "adb shell cat /proc/net/xt_qtaguid/stats |grep -iE '10095' | awk '{count_rx=$6+count_rx;count_tx=$8+count_tx}END{print count_rx','count_tx}'"
-    _adb = "adb shell cat /proc/net/xt_qtaguid/stats |grep -iE '10095'|awk '{print $6','$8}'"
+    _adb = "adb shell cat /proc/net/xt_qtaguid/stats |grep -iE %s|awk '{print $6','$8}'"%ctool.getUID(pkg)
     userID = ctool.getUID(pkg)
     result = ctool.execADB(_adb)
     result = result.split('\n')[0:-2]  #去除localhost流量
@@ -19,7 +19,7 @@ def getTraffic():
         count_rx = int(i.split(" ")[0]) + count_rx
         count_tx = int(i.split(" ")[1]) + count_tx
     ctime = ctool.getCurrentTime()
-    ctool.writeCSV(map(lambda x:str(x), [ctime,count_rx/1000.0,count_tx/1000.0]))
+    ctool.writeTrafficCSV(map(lambda x:str(x), [ctime,count_rx/1000.0,count_tx/1000.0]))
     print '\n  时间    接收KB  发送kb'
     print ctime,count_rx/1000.0,count_tx/1000.0
     

@@ -4,8 +4,8 @@
 from baseUtils import *
 import os
 
-pkg = 'com.togic.livevideo'
 ctool = C_Utils()
+pkg = ctool.readSetting()[0]
 
 def getDelay():
     """"""
