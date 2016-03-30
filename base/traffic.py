@@ -5,6 +5,7 @@ from baseUtils import *
 
 pkg = 'com.togic.livevideo'
 ctool = C_Utils()
+
 def getTraffic():
     """"""
     #_adb = "adb shell cat /proc/net/xt_qtaguid/stats |grep -iE '10095' | awk '{count_rx=$6+count_rx;count_tx=$8+count_tx}END{print count_rx','count_tx}'"

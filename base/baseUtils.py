@@ -45,7 +45,7 @@ class C_Utils():
     def getCurrentTime(self):
         return time.strftime('%H-%M-%S',time.localtime(time.time()))
     
-    def writeCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'traffic.csv')):
+    def writeTrafficCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'traffic.csv')):
         """"""
         if not os.path.exists(abs_path):
             f = file(abs_path,'w+')
@@ -56,6 +56,30 @@ class C_Utils():
         _writer = csv.writer(f)
         _writer.writerow(d_list)
         f.close()
+    
+    def writeMemCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'meminfo.csv')):
+        """"""
+        if not os.path.exists(abs_path):
+            f = file(abs_path,'w+')
+            _writer = csv.writer(f)
+            _writer.writerow(['时间','分配内存','占用百分比'])
+            f.close()
+        f = file(abs_path,'a+')
+        _writer = csv.writer(f)
+        _writer.writerow(d_list)
+        f.close()
+    
+    def writeGFXCSV(self,d_list,abs_path = os.path.join(os.getcwd(),'GFX.csv')):
+        """"""
+        if not os.path.exists(abs_path):
+            f = file(abs_path,'w+')
+            _writer = csv.writer(f)
+            _writer.writerow(['Draw(ms)','Process(ms)','Execute(ms)','总时间<16ms'])
+            f.close()
+        f = file(abs_path,'a+')
+        _writer = csv.writer(f)
+        _writer.writerow(d_list)
+        f.close()     
 
 if __name__ == '__main__':
     print C_Utils().writeCSV(['15-15-15','151','1515'])

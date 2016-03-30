@@ -1,17 +1,22 @@
 #!/usr/bin/env python
 #_*_ coding:utf-8 _*_
 
-from base import traffic
+from base import traffic,memory,delay
 
 #----------------------------------------------------------------------
 def run():
     """"""
-    print u'1.内存(维护中)\n2.流量\n3.时延'
+    print u'本工具的github地址:https://github.com/CloudHuan/Test_Tools'
+    print u'1.内存\n2.流量\n3.时延\n4.启动速度'
     select_num = raw_input('启动的序号，回车键结束-->')
     if select_num == '1':
-        trace_memory.printMem()  
-    elif select_num== '2':
+        memory.main()  
+    elif select_num == '2':
         traffic.main()
+    elif select_num == '3':
+        delay.main()
+    elif select_num == '4':
+        print "直接adb logcat | grep -iE 'displayed'直接看到，这里不支持啦"    
 
 if __name__ == '__main__':
     run()
